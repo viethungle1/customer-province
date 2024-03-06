@@ -1,5 +1,4 @@
 package com.example.customerprovincemanagement.controller;
-
 import com.example.customerprovincemanagement.model.Customer;
 import com.example.customerprovincemanagement.model.Province;
 import com.example.customerprovincemanagement.service.ICustomerService;
@@ -9,23 +8,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/provinces")
 public class ProvinceController {
-
     @Autowired
     private IProvinceService provinceService;
 
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("")
+    @GetMapping
     public ModelAndView listProvince() {
         ModelAndView modelAndView = new ModelAndView("/province/list");
         Iterable<Province> provinces = provinceService.findAll();
-        modelAndView.addObject("provinces",provinces);
+        modelAndView.addObject("provinces", provinces);
         return modelAndView;
     }
 
@@ -37,7 +36,8 @@ public class ProvinceController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute("province") Province province, RedirectAttributes redirectAttributes) {
+    public String create(@ModelAttribute("province") Province province,
+                         RedirectAttributes redirectAttributes) {
         provinceService.save(province);
         redirectAttributes.addFlashAttribute("message", "Create new province successfully");
         return "redirect:/provinces";
@@ -56,7 +56,8 @@ public class ProvinceController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute("province") Province province, RedirectAttributes redirect) {
+    public String update(@ModelAttribute("province") Province province,
+                         RedirectAttributes redirect) {
         provinceService.save(province);
         redirect.addFlashAttribute("message", "Update province successfully");
         return "redirect:/provinces";
@@ -68,7 +69,9 @@ public class ProvinceController {
         if(!provinceOptional.isPresent()){
             return new ModelAndView("/error_404");
         }
+
         Iterable<Customer> customers = customerService.findAllByProvince(provinceOptional.get());
+
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("customers", customers);
         return modelAndView;

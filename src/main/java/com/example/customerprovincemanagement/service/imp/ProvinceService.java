@@ -1,5 +1,4 @@
 package com.example.customerprovincemanagement.service.imp;
-
 import com.example.customerprovincemanagement.model.Province;
 import com.example.customerprovincemanagement.repository.IProvinceRepository;
 import com.example.customerprovincemanagement.service.IProvinceService;
@@ -21,7 +20,6 @@ public class ProvinceService implements IProvinceService {
     @Override
     public void save(Province province) {
         iProvinceRepository.save(province);
-
     }
 
     @Override
@@ -32,6 +30,5 @@ public class ProvinceService implements IProvinceService {
     @Override
     public void remove(Long id) {
         iProvinceRepository.deleteById(id);
-
     }
 }
